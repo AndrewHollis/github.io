@@ -17,26 +17,24 @@
         <div class="jumbotron"><h1>Web Midi Synthesizer</h1></div>        
          <div class="row">
             <div class="col-md-6"></div>
-            <div class="col-md-6">
-                <a href="index.html">Index</a> * 
-                <a href="webSynth.html">MIDI Web Synth</a> *
-                <a href="A3000Remote.html">A3000 Remote</a>
-           </div>
-
-        <div class="row"  id="selectMidi">            
-            <div id="getInput" class="col-md-6">
-                Select Input:
-                <select name="inputs" id="listInputs"></select>
-                <button type="button" onclick="selectInputIndex()">Select Input</button>
+                <div class="col-md-6">
+                    <a href="index.html">Index</a> * 
+                    <a href="webSynth.html">MIDI Web Synth</a> *
+                    <a href="A3000Remote.html">A3000 Remote</a>
+               </div>
+            <div class="row"  id="selectMidi">            
+                <div id="getInput" class="col-md-6">
+                    Select Input:
+                    <select name="inputs" id="listInputs"></select>
+                    <button type="button" onclick="selectInputIndex()">Select Input</button>
+                </div>
             </div>
-        </div>
-
         <div id="monoSynth" class="row">
             <div id="oscillator" class="col-md-2">
                 <h4>Oscillator</h4>
                 <!--No spaces in choices as it passes the space as well-->
                 <canvas nx="select" id="oscillatorType" choices="sine,square,triangle,sawtooth,pwm,pulse"></canvas>
-                <canvas nx="dial" id="detune" text="detune"></canvas>
+                <canvas nx="dial" id="detune" label="detune"></canvas>
             </div>
 
             <div id="amplitudeEnvelope" class="col-md-2">
