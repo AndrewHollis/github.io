@@ -1,8 +1,8 @@
-var midiAccess = null;  // global MIDIAccess object
+﻿var midiAccess = null;  // global MIDIAccess object
 var html, inputPort, outputPort;
 
-function onMIDISuccess( midiAccess ) {
-    console.log( "MIDI ready!" );
+function onMIDISuccess(midiAccess) {
+    console.log("MIDI ready!");
     midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
     // for Debug
     //listInputsAndOutputs(midiAccess);
@@ -12,16 +12,16 @@ function onMIDISuccess( midiAccess ) {
 }
 
 function onMIDIFailure(msg) {
-    console.log( "Failed to get MIDI access - " + msg );
+    console.log("Failed to get MIDI access - " + msg);
 }
 
-navigator.requestMIDIAccess({sysex:true}).then( onMIDISuccess, onMIDIFailure );
+navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
 
 function selectInputIndex() {
     var x = document.getElementById("listInputs").selectedIndex;
     inputPort = midi.inputs.get(x);
     console.log(inputPort);
-    inputPort.onmidimessage = MIDIMessageEventHandler;    
+    inputPort.onmidimessage = MIDIMessageEventHandler;
     console.log("Selected Input Port: " + inputPort.name);
 }
 
@@ -52,7 +52,7 @@ function DisplayInputsAndOutputs(midiAccess) {
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
 
-    if(outputs){ console.log("outputs present");}
+    if (outputs) { console.log("outputs present"); }
 
     // Add the outputs to the outputs selector drop down.
     for (var output of outputs)
@@ -65,14 +65,14 @@ function DisplayInputsAndOutputs(midiAccess) {
     selectOutput.appendChild(fragment2);
 }
 
-function listInputsAndOutputs( midiAccess ) {
+function listInputsAndOutputs(midiAccess) {
     for (var entry of midiAccess.inputs) {
-        //var input = entry[1];
+    //var input = entry[1];
         listInputs.choice = entry[1];
 
-        console.log( "Input port [type:'" + input.type + "'] id:'" + input.id +
+        console.log("Input port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
-            "' version:'" + input.version + "'" );
+            "' version:'" + input.version + "'");
     }
     for (var entry of midiAccess.outputs) {
     //var input = entry[1];
@@ -87,35 +87,39 @@ function listInputsAndOutputs( midiAccess ) {
 
 function MIDIMessageEventHandler(event) {
     data = event.data,
-    //console.log("data: " + data[0]);
-
     cmd = data[0] >> 4,
     channel = data[0] & 0xf,
     type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
     note = data[1],
     velocity = data[2] / 127;
-    //console.log("Ch: " + channel);
-    //console.log("cmd: " + cmd);
-    //console.log("Type: " + type);
+    console.log("Ch: " + channel);
+    console.log("cmd: " + cmd);
+    console.log("Type: " + type);
+    console.log("Note: " + note);
 
-    var freq = frequencyFromNoteNumber(note);
+    //document.getElementById("message").innerHTML = "ch: " + channel + " Note: " + note;
 
     switch (type) {
         case 144: // noteOn message 
             if (velocity == 0) { //Some devices send a midi note On message with velocity set to 0 to represent note off
-                synth.triggerRelease();
+                document.getElementById("message").innerHTML = "ch: " + channel + " NoteOff: " + note
                 break;
             } else {
-                synth.triggerAttack(freq, null, velocity);
+                document.getElementById("message").innerHTML = "ch: " + channel + " NoteOn: " + note + " Velocity: " + velocity;
                 break;
             }
         case 128: // noteOff message 
-            synth.triggerRelease();
+            document.getElementById("message").innerHTML = "ch: " + channel + " NoteOff: " + note
             break;
+            
     }
+
+
+
+    
 }
 
-function sendMessage(message) {  
+function sendMessage(message) {
     outputPort.send(message);
 }
 

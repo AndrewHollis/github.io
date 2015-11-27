@@ -15,28 +15,28 @@
         <h1>A3000 Remote</h1>
       
         <div id="messageBox"></div>               
-    </div>
-    
+    </div>    
          <div class="row">
-                         <div class="col-md-6"></div>
-              <div class="col-md-6">
-                <a href="index.html">Index</a> * 
-                <a href="webSynth.html">MIDI Web Synth</a> *
-                <a href="A3000Remote.html">A3000 Remote</a>
-            </div>
+                <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                    <a href="index.html">Index</a> * 
+                    <a href="webSynth.html">MIDI Web Synth</a> *
+                    <a href="A3000Remote.html">A3000 Remote</a>
+                </div>
              </div>
     <div class="row">
-          <div id="getOutput" class="col-lg-6"> Select Output:
+        <div id="getOutput" class="col-lg-6"> Select Output:
             <select name="outputs" id="listOutputs"></select>
             <button type="button" class="btn btn-default btn-info" onclick="selectOutputIndex()">Select</button>
         </div> 
-           <div id="getInput" class="col-lg-6"> Select Input:
-            <select name="inputs" id="listInputs"></select>
+        <div id="getInput" class="col-lg-6"> Select Input:
+            <select name="inputs" id="listInputs"></select>                
             <button type="button" class="btn btn-default btn-info" onclick="selectInputIndex()">Select</button>
         </div> 
     </div>
 
     <div class="row">
+
         <div class="col-md-1">
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-lg btn-info" onclick="sendMessage(play)">Play</button>
@@ -46,7 +46,6 @@
                 <button type="button" class="btn btn-lg btn-info" onclick="sendMessage(utility)">Utility</button>
             </div>
         </div>
-
 
         <div class="col-md-6">
             <div id="dials">
@@ -73,7 +72,9 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-5"></div>
+
     </div> 
 
 
@@ -103,10 +104,6 @@
             </div>
         </div>
         <div class="col-md-6"></div>
-
-
     </div>
-
-
 </body>
 </html>

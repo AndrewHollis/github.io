@@ -19,56 +19,52 @@
             <div class="col-md-6"></div>
                 <div class="col-md-6">
                     <a href="index.html">Index</a> * 
-                    <a href="webSynth.html">MIDI Web Synth</a> *
                     <a href="A3000Remote.html">A3000 Remote</a>
                </div>
             <div class="row"  id="selectMidi">            
                 <div id="getInput" class="col-md-6">
                     Select Input:
-                    <select name="inputs" id="listInputs"></select>
+                    <canvas nx="select" id="listInputs"></canvas>
                     <button type="button" onclick="selectInputIndex()">Select Input</button>
                 </div>
             </div>
         <div id="monoSynth" class="row">
             <div id="oscillator" class="col-md-2">
                 <h4>Oscillator</h4>
-                <!--No spaces in choices as it passes the space as well-->
-                <canvas nx="select" id="oscillatorType" choices="sine,square,triangle,sawtooth,pwm,pulse"></canvas>
-                <canvas nx="dial" id="detune" label="detune"></canvas>
+                    <canvas nx="dial" id="detune"></canvas>
+                    <p><canvas nx="select" id="oscillatorType" choices="sine,square,triangle,sawtooth,pwm,pulse"></canvas></p>
             </div>
 
             <div id="amplitudeEnvelope" class="col-md-2">
                 <h4>Amp Envelope</h4>                
-                <canvas nx="slider" id="attack"></canvas>
-                <canvas nx="slider" id="decay"></canvas>
-                <canvas nx="slider" id="sustain"></canvas>
-                <canvas nx="slider" id="release"></canvas>
+                    <canvas nx="slider" id="attack" label="Attack"></canvas>
+                    <canvas nx="slider" id="decay" label="Decay"></canvas>
+                    <canvas nx="slider" id="sustain" label="Sustain"></canvas>
+                    <canvas nx="slider" id="release" label="Release"></canvas>
             </div>
 
-            <div id="filter" class=" col-md-3">
+            <div id="filter" class=" col-md-2">
                 <h4>Filter</h4>
-                <canvas nx="select" id="filterTypes" choices="lowpass,highpass,bandpass,peaking"></canvas>    
-                <canvas nx="select" id="filterDecibels" choices="-12, -24, -48"></canvas>     
-                cut                                 
-                <canvas nx="dial" id="cutoff"></canvas>
+                    <canvas nx="dial" id="cutoff" label="Cut"></canvas>
+                    <p><canvas nx="select" id="filterTypes" choices="lowpass,highpass,bandpass,peaking"></canvas></p>
+                    <canvas nx="select" id="filterDecibels" choices="-12, -24, -48"></canvas>                                 
             </div>
 
             <div id="filterEnvelope" class="col-md-2">
                 <h4>Filter Envelope</h4>
-                <canvas nx="slider" id="filterAttack"></canvas>
-                <canvas nx="slider" id="filterDecay"></canvas>
-                <canvas nx="slider" id="filterSustain"></canvas>
-                <canvas nx="slider" id="filterRelease"></canvas>
+                    <canvas nx="slider" id="filterAttack" label="Attack"></canvas>
+                    <canvas nx="slider" id="filterDecay" label="Decay"></canvas>
+                    <canvas nx="slider" id="filterSustain" label="Sustain"></canvas>
+                    <canvas nx="slider" id="filterRelease" label="Release"></canvas>
             </div>
 
-            <div id="output" class="col-md-2">
+            <div id="output" class="col-md-3">
                 <h4>Main</h4>                
-                <canvas nx="dial" id="volume"></canvas>
-                Delay
-                <canvas nx="dial" id="delayWetDry"></canvas>
-                <canvas nx="dial" id="portmento"></canvas>
+                    <canvas nx="dial" id="volume" label="Volume"></canvas>
+                    <canvas nx="dial" id="delayWetDry" label="Dry/Wet"></canvas>
+                    <canvas nx="dial" id="portmento" label="Port"></canvas>
 
-                <canvas nx="ghost"></canvas>
+                    <canvas nx="ghost"></canvas>
             </div>                        
         </div>
 	</div>
@@ -105,9 +101,14 @@
 
         //----Nexus UI Set up.
         nx.onload = function () {
-            nx.colorize("#0af");
+
+            nx.labelSize(30);
+            nx.skin("dark");
+            nx.colorize("#809BB9");
 
             attack.set({ value: 0.01 });
+            
+
 
             for (var key in nx.widgets) {
                 with (nx.widgets[key]) {

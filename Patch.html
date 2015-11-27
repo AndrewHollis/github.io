@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<link href="styles/style.css" rel="stylesheet" />
+<link href="styles/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="scripts/a3kMessage.js"></script>
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/nexusUI.js"></script>
+    <script type="text/javascript" src="scripts/MidiTools.js"></script>
+<html>
+<head>
+    <title>BassStation Editor</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>Patch Editor</h1>
+        <p>Patch editor for Novation BassStation Rack</p>
+    </div>
+    <div class="row">
+        <div id="getOutput" class="col-lg-6"> Select Output:
+                    <canvas nx="select" id="listInputs"></canvas>
+            <button type="button" class="btn btn-default btn-info" onclick="selectOutputIndex()">Select</button>
+        </div> 
+           <div id="getInput" class="col-lg-6"> Select Input:
+                    <canvas nx="select" id="listOutputs"></canvas>
+            <button type="button" class="btn btn-default btn-info" onclick="selectInputIndex()">Select</button>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <p>Main</p>
+            <canvas nx="dial" id="volume" label="Volume"></canvas>
+            <canvas nx="number" id="channel" label="Channel" min="1" max="15"></canvas>
+
+        </div>
+        <div class="col-md-3">
+            <p>Filter</p>
+            <canvas nx="dial" id="filterFrequency" label="Freq"></canvas>
+            <canvas nx="dial" id="filterResonance" label="Res"></canvas>
+            <canvas nx="dial" id="filterModDepth" label="Mod"></canvas>
+        </div>
+        <div class="col-md-3">
+            <p>Amp Envelope</p>
+            <canvas nx="slider" id="envAttack" label="Attack"></canvas>
+            <canvas nx="slider" id="envDecay" label="Decay"></canvas>
+            <canvas nx="slider" id="envSustain" label="Sustain"></canvas>
+            <canvas nx="slider" id="envRelease" label="Release"></canvas>
+            <canvas nx="slider" id="envVelocity" label="Velocity"></canvas>
+        </div>
+        <div class="col-md-4">
+            <p>Filter Env</p>
+            <canvas nx="slider" id="filterAttack" label="Attack"></canvas>
+            <canvas nx="slider" id="filterDecay" label="Decay"></canvas>
+            <canvas nx="slider" id="filterSustain" label="Sustain"></canvas>
+            <canvas nx="slider" id="filterRelease" label="Release"></canvas>
+            <canvas nx="slider" id="filterVelocity" label="Velocity"></canvas>
+
+        </div>
+
+    </div>
+<script>
+
+	nx.onload = function() {
+		
+	    nx.labelSize(30);
+	    nx.skin("dark");
+	    nx.colorize("#809BB9"); // sets accent (default)
+	  //nx.colorize("border", "#FFFFFF");
+	  //nx.colorize("fill", "#222244");
+	  //nx.colorize("black", "#FFFFFF"); //Sets Labels
+	  //nx.colorize("white", "#111111");
+
+	    channel.min = 0;
+	    channel.max = 16;
+	    // nx.colors.black = "#FFFFFF"
+
+	  for (var key in nx.widgets) {
+	      with (nx.widgets[key]) {
+	          on('*', function (data) {
+	              // code that will be executed
+	              console.log(canvasID, data)
+	          })
+	      }
+	  }
+
+
+	  volume.on('*', function (data) {
+
+	  })
+
+	  filterFrequency.on('*', function (data) {
+
+	  })
+
+	  filterResonance.on('*', function (data) {
+
+	  })
+
+	  filterModDepth.on('*', function (data) {
+
+	  })
+
+	  envAttack.on('*', function (data) {
+
+	  })
+
+	  envDecay.on('*', function (data) {
+
+	  })
+	  envSustain.on('*', function (data) {
+
+	  })
+
+	  envRelease.on('*', function (data) {
+
+	  })
+
+	  envVelocity.on('*', function (data) {
+
+	  })
+
+	  filterAttack.on('*', function (data) {
+
+	  })
+
+	  filterDecay.on('*', function (data) {
+
+	  })
+
+	  filterSustain.on('*', function (data) {
+
+	  })
+
+	  filterRelease.on('*', function (data) {
+
+	  })
+
+	  filterVelocity.on('*', function (data) {
+
+	  })
+
+
+	}
+
+</script>
+</body>
+</html>

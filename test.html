@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<link href="styles/style.css" rel="stylesheet" />
+<link href="styles/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="scripts/a3kMessage.js"></script>
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/nexusUI.js"></script>
+<script src="scripts/testMidi.js"></script>
+
+<html>
+<head>
+    <title>Test</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>Test</h1>
+        <p></p>
+    </div>
+    <div class="row">
+                <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                    <a href="index.html">Index</a> * 
+                    <a href="webSynth.html">MIDI Web Synth</a> *
+                    <a href="A3000Remote.html">A3000 Remote</a>
+                </div>
+             </div>
+    <div class="row">
+        <div id="getOutput" class="col-lg-6"> Select Output:
+            <select name="outputs" id="listOutputs"></select>
+            <button type="button" class="btn btn-default btn-info" onclick="selectOutputIndex()">Select</button>
+        </div> 
+        <div id="getInput" class="col-lg-6"> Select Input:
+            <select name="inputs" id="listInputs"></select>                
+            <button type="button" class="btn btn-default btn-info" onclick="selectInputIndex()">Select</button>
+        </div> 
+    </div>
+    <div id="message"></div>
+    <canvas nx="slider" label="Slider"></canvas>
+    <canvas nx="dial" label="Dial"></canvas>
+
+    <script>
+
+        var preset = {
+            "slider1": 0,
+            "dial1": 120
+        };
+
+        nx.onload = function () {
+
+            nx.labelSize(45);
+            nx.skin("dark");
+            nx.colorize("#809BB9"); // sets accent (default)            
+
+            for (var i in nx.widgets) {
+                //console.log(nx.widgets[i]);
+                //nx.widgets[i].set({ value: 100 });                
+            }          
+
+            // Log Data sent from UI
+            for (var key in nx.widgets) {
+                with (nx.widgets[key]) {
+                    on('*', function (data) {
+                        // code that will be executed
+                        console.log(canvasID, data);
+                        
+                    });
+                }
+            }
+        }
+
+</script>
+</body>
+</html>
