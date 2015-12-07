@@ -70,17 +70,13 @@ function DisplayInputsAndOutputs(midiAccess) {
 
 function listInputsAndOutputs(midiAccess) {
     for (var entry of midiAccess.inputs) {
-    //var input = entry[1];
         listInputs.choice = entry[1];
-
         console.log("Input port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
             "' version:'" + input.version + "'");
     }
     for (var entry of midiAccess.outputs) {
-    //var input = entry[1];
         listOutputs.choice = entry[1];
-
         console.log("Output port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
             "' version:'" + input.version + "'");
