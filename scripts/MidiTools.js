@@ -1,27 +1,31 @@
+// #region Get MIDI Access 
+
 var midiAccess = null;  // global MIDIAccess object
 var html, inputPort, outputPort;
 
-function onMIDISuccess( midiAccess ) {
-    console.log( "MIDI ready!" );
-    midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
-    // for Debug
-    //listInputsAndOutputs(midiAccess);
+function onMIDISuccess(midiAccess) {
+    console.log("MIDI ready!");
+    midi = {};
+    midi = midiAccess; 
     DisplayInputsAndOutputs(midi);
-    midi.onmidimessage = MIDIMessageEventHandler();
-
 }
 
 function onMIDIFailure(msg) {
-    console.log( "Failed to get MIDI access - " + msg );
+    console.log("Failed to get MIDI access - " + msg);
 }
 
-navigator.requestMIDIAccess({sysex:true}).then( onMIDISuccess, onMIDIFailure );
+navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
+
+// #endregion
+
+// #region List Inputs & Outputs
+
 
 function selectInputIndex() {
     var x = document.getElementById("listInputs").selectedIndex;
     inputPort = midi.inputs.get(x);
     console.log(inputPort);
-    inputPort.onmidimessage = MIDIMessageEventHandler;    
+    inputPort.onmidimessage = MIDIMessageEventHandler;
     console.log("Selected Input Port: " + inputPort.name);
 }
 
@@ -31,7 +35,6 @@ function selectOutputIndex() {
     console.log("Selected Output Port: " + outputPort.name);
 }
 
-//TODO change so that midi port is connected on select: see guitest
 function DisplayInputsAndOutputs(midiAccess) {
     var inputs = midiAccess.inputs,
         selectInput = document.getElementById("listInputs"),
@@ -52,7 +55,7 @@ function DisplayInputsAndOutputs(midiAccess) {
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
 
-    if(outputs){ console.log("outputs present");}
+    if (outputs) { console.log("outputs present"); }
 
     // Add the outputs to the outputs selector drop down.
     for (var output of outputs)
@@ -65,14 +68,14 @@ function DisplayInputsAndOutputs(midiAccess) {
     selectOutput.appendChild(fragment2);
 }
 
-function listInputsAndOutputs( midiAccess ) {
+function listInputsAndOutputs(midiAccess) {
     for (var entry of midiAccess.inputs) {
-        //var input = entry[1];
+    //var input = entry[1];
         listInputs.choice = entry[1];
 
-        console.log( "Input port [type:'" + input.type + "'] id:'" + input.id +
+        console.log("Input port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
-            "' version:'" + input.version + "'" );
+            "' version:'" + input.version + "'");
     }
     for (var entry of midiAccess.outputs) {
     //var input = entry[1];
@@ -84,6 +87,8 @@ function listInputsAndOutputs( midiAccess ) {
     }
 }
 
+
+// #endregion
 
 function MIDIMessageEventHandler(event) {
     data = event.data,
@@ -102,13 +107,9 @@ function MIDIMessageEventHandler(event) {
 
     switch (type) {
         case 144: // noteOn message 
-            if (velocity == 0) { //Some devices send a midi note On message with velocity set to 0 to represent note off
-                synth.triggerRelease();
+            
                 break;
-            } else {
-                synth.triggerAttack(freq, null, velocity);
-                break;
-            }
+
         case 128: // noteOff message 
             synth.triggerRelease();
             break;
@@ -117,12 +118,6 @@ function MIDIMessageEventHandler(event) {
 
 function sendMessage(message) {  
     outputPort.send(message);
-}
-
-function frequencyFromNoteNumber(note) {
-    //TODO Which algorithm to use? Test using Tuner
-    return 440 * Math.pow(2, (note - 69) / 12);
-    //return (440. * Math.exp(.057762265 * (f - 69.)));
 }
 
 

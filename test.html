@@ -17,13 +17,12 @@
         <p></p>
     </div>
     <div class="row">
-                <div class="col-md-6"></div>
-                  <div class="col-md-6">
-                    <a href="index.html">Index</a> * 
-                    <a href="webSynth.html">MIDI Web Synth</a> *
-                    <a href="A3000Remote.html">A3000 Remote</a>
-                </div>
-             </div>
+        <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <a href="index.html">Index</a> * 
+                <a href="A3000Remote.html">A3000 Remote</a>
+            </div>
+    </div>
     <div class="row">
         <div id="getOutput" class="col-lg-6"> Select Output:
             <select name="outputs" id="listOutputs"></select>
@@ -40,10 +39,8 @@
 
     <script>
 
-        var preset = {
-            "slider1": 0,
-            "dial1": 120
-        };
+
+
 
         nx.onload = function () {
 
@@ -51,9 +48,17 @@
             nx.skin("dark");
             nx.colorize("#809BB9"); // sets accent (default)            
 
+            var preset = {
+                "slider1": 30,
+                "dial1": 120
+            };
+
+
             for (var i in nx.widgets) {
                 //console.log(nx.widgets[i]);
-                //nx.widgets[i].set({ value: 100 });                
+                //nx.widgets[i].set({ value: 100 });    
+                nx.widgets[i].set({ value: preset[i] });                
+
             }          
 
             // Log Data sent from UI

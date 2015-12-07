@@ -91,16 +91,10 @@ function MIDIMessageEventHandler(event) {
     channel = data[0] & 0xf,
     type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
     note = data[1],
-    velocity = data[2] / 127;
-    console.log("Ch: " + channel);
-    console.log("cmd: " + cmd);
-    console.log("Type: " + type);
-    console.log("Note: " + note);
-
-    //document.getElementById("message").innerHTML = "ch: " + channel + " Note: " + note;
+    velocity = data[2];
 
     switch (type) {
-        case 144: // noteOn message 
+        case 144: // noteOn  
             if (velocity == 0) { //Some devices send a midi note On message with velocity set to 0 to represent note off
                 document.getElementById("message").innerHTML = "ch: " + channel + " NoteOff: " + note
                 break;
@@ -108,9 +102,30 @@ function MIDIMessageEventHandler(event) {
                 document.getElementById("message").innerHTML = "ch: " + channel + " NoteOn: " + note + " Velocity: " + velocity;
                 break;
             }
-        case 128: // noteOff message 
+        case 128: // noteOff  
             document.getElementById("message").innerHTML = "ch: " + channel + " NoteOff: " + note
             break;
+        case 160: // polyphonic key pressure  
+            document.getElementById("message").innerHTML = "ch: " + channel + " poly key: " + note;
+            break;
+        case 176: // CC message 
+            document.getElementById("message").innerHTML = "ch: " + channel + " CC: " + note + " data: " + velocity;
+            break;
+        case 192: // Program change  
+            document.getElementById("message").innerHTML = "ch: " + channel + " Prg Chg: " + velocity;
+            break;
+        case 208: // Channel pressure  
+            document.getElementById("message").innerHTML = "ch: " + channel + " ch pressure: " + velocity;
+            break;
+        case 224: // Pitch bend  
+            document.getElementById("message").innerHTML = "ch: " + channel + " PB: " + data;
+            break;
+        case 240: // Sysex  
+            document.getElementById("message").innerHTML = "ch: " + channel + " sysex: " + data;
+            break;
+        default:
+            document.getElementById("message").innerHTML = "Unregistered message";
+
             
     }
 
