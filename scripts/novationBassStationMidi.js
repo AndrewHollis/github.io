@@ -5,9 +5,9 @@ var html, inputPort, outputPort;
 
 function onMIDISuccess(midiAccess) {
     console.log("MIDI ready!");
-    var midi;
-    midi = midiAccess;
-    DisplayInputsAndOutputs(midi);
+    //var midi;
+    //midi = midiAccess;
+    DisplayInputsAndOutputs(midiAccess);
 }
 
 function onMIDIFailure(msg) {
