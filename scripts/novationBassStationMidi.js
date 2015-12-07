@@ -5,7 +5,7 @@ var html, inputPort, outputPort;
 
 function onMIDISuccess(midiAccess) {
     console.log("MIDI ready!");
-    var midi = {};
+    var midi;
     midi = midiAccess;
     DisplayInputsAndOutputs(midi);
 }
@@ -54,8 +54,6 @@ function DisplayInputsAndOutputs(midiAccess) {
     var outputs = midiAccess.outputs,
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
-
-    if (outputs) { console.log("outputs present"); }
 
     // Add the outputs to the outputs selector drop down.
     for (var output of outputs)
