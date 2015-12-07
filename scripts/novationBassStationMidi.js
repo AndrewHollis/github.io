@@ -51,7 +51,7 @@ function DisplayInputsAndOutputs(midiAccess) {
     selectInput.appendChild(fragment);
 
     // Add outputs to drop down
-    var outputs = midi.outputs,
+    var outputs = midiAccess.outputs,
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
 
