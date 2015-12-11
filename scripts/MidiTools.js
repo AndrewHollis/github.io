@@ -97,13 +97,13 @@ function MIDIMessageEventHandler(event) {
     console.log("Ch: " + channel);
     console.log("cmd: " + cmd);
     console.log("Type: " + type);
-}
+
     var freq = frequencyFromNoteNumber(note);
 
     switch (type) {
         case 144: // noteOn message 
-            
-                break;
+
+            break;
 
         case 128: // noteOff message 
             synth.triggerRelease();
