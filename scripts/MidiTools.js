@@ -20,7 +20,6 @@ navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
 
 // #region List Inputs & Outputs
 
-
 function selectInputIndex() {
     var x = document.getElementById("listInputs").selectedIndex;
     inputPort = midi.inputs.get(x);
@@ -40,7 +39,6 @@ function DisplayInputsAndOutputs(midiAccess) {
         selectInput = document.getElementById("listInputs"),
         fragment = document.createDocumentFragment();
 
-    // Add the inputs to the inputs selector drop down.
     for (var input of inputs)
     {
         var opt = document.createElement('option');
@@ -50,14 +48,12 @@ function DisplayInputsAndOutputs(midiAccess) {
     }
     selectInput.appendChild(fragment);
 
-    // Add outputs to drop down
     var outputs = midi.outputs,
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
 
     if (outputs) { console.log("outputs present"); }
 
-    // Add the outputs to the outputs selector drop down.
     for (var output of outputs)
     {
         var opt2 = document.createElement('option');
@@ -87,22 +83,21 @@ function listInputsAndOutputs(midiAccess) {
     }
 }
 
-
 // #endregion
 
 function MIDIMessageEventHandler(event) {
     data = event.data,
-    //console.log("data: " + data[0]);
+    console.log("data: " + data[0]);
 
-    cmd = data[0] >> 4,
-    channel = data[0] & 0xf,
+    cmd = data[0] >> 4, //extract command by shifting the first 4 bits by four
+    channel = data[0] & 0xf, //
     type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
     note = data[1],
     velocity = data[2] / 127;
-    //console.log("Ch: " + channel);
-    //console.log("cmd: " + cmd);
-    //console.log("Type: " + type);
-
+    console.log("Ch: " + channel);
+    console.log("cmd: " + cmd);
+    console.log("Type: " + type);
+}
     var freq = frequencyFromNoteNumber(note);
 
     switch (type) {

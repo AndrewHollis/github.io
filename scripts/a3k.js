@@ -9,7 +9,7 @@ var outputPort;
 
 function onMIDISuccess(midiAccess){
     console.log( "MIDI ready!" );
-    midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
+    midi = midiAccess;  
     displayOutputs(midi);
 }
 

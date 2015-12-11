@@ -5,14 +5,13 @@ var html, inputPort, outputPort;
 
 function onMIDISuccess(midiAccess) {
     console.log("MIDI ready!");
-    //var midi;
-    //midi = midiAccess;
-    DisplayInputsAndOutputs(midiAccess);
+    var midi = {};
+    midi = midiAccess;
+    DisplayInputsAndOutputs(midi);
 }
 
 function onMIDIFailure(msg) {
-    console.log("Failed to get MIDI access - " + msg);
-    
+    console.log("Failed to get MIDI access - " + msg);    
 }
 
 navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
@@ -51,9 +50,11 @@ function DisplayInputsAndOutputs(midiAccess) {
     selectInput.appendChild(fragment);
 
     // Add outputs to drop down
-    var outputs = midiAccess.outputs,
+    var outputs = midi.outputs,
       selectOutput = document.getElementById("listOutputs"),
       fragment2 = document.createDocumentFragment();
+
+    if (outputs) { console.log("outputs present"); }
 
     // Add the outputs to the outputs selector drop down.
     for (var output of outputs)
@@ -68,13 +69,17 @@ function DisplayInputsAndOutputs(midiAccess) {
 
 function listInputsAndOutputs(midiAccess) {
     for (var entry of midiAccess.inputs) {
+    //var input = entry[1];
         listInputs.choice = entry[1];
+
         console.log("Input port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
             "' version:'" + input.version + "'");
     }
     for (var entry of midiAccess.outputs) {
+    //var input = entry[1];
         listOutputs.choice = entry[1];
+
         console.log("Output port [type:'" + input.type + "'] id:'" + input.id +
             "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
             "' version:'" + input.version + "'");
@@ -188,7 +193,7 @@ function setPatch() {
     // Set UI values from patch
     for (var i in nx.widgets) {
         if (nx.widgets[i].type == "comment") { // Add Patch Name to UI
-            nx.widgets[i].set({ text: newPatch[i] });
+            nx.widgets[i].set({ text: newPatch[i] })
         } else {
             nx.widgets[i].set({ value: newPatch[i] });
         }
@@ -209,9 +214,9 @@ nx.onload = function () {
     channel.min = 0;
     channel.max = 15;
     //channel.set({ value: 1 });
-    var patch = patch1, command,
-    midiCh = 0;
-    command = 176 + midiCh;
+    var patch = patch1, command;
+    var midiCh = 0;
+    var command = 176 + midiCh;
     addPatches();
 
     // Set UI values from patch
@@ -220,13 +225,13 @@ nx.onload = function () {
             nx.widgets[i].set({ text: patch[i] });
         } else {
             nx.widgets[i].set({ value: patch[i] });
-        }
+        };
     }
 
     channel.on('*', function (data) {
         midiCh = data.value;
         command = 176 + midiCh;
-    });
+    })
 
 
     // #region UI Controls

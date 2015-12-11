@@ -87,11 +87,24 @@ function listInputsAndOutputs(midiAccess) {
 
 function MIDIMessageEventHandler(event) {
     data = event.data,
-    cmd = data[0] >> 4,
-    channel = data[0] & 0xf,
-    type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
+
+    cmd = data[0] >> 4, //extract command by shifting the first 4 bits by four.
+                        // so 11 would be a CC message, 9 would mean a noteOn message. See notes
+
+    channel = data[0] & 0xf, // Get channel by Bitwise AND operator 0xF = 15
+        console.log("data: " + data[0]);
+    type = data[0] & 0xf0, // Get message type using Bitwise AND operator 0xF0 = 240
     note = data[1],
-    velocity = data[2];
+    velocity = data[2] / 127;
+
+    //console.log("data: " + data[0]);
+
+
+    //console.log("Ch: " + channel);
+    ////console.log("cmd: " + cmd);
+    //console.log("Type: " + type);
+
+
 
     switch (type) {
         case 144: // noteOn  

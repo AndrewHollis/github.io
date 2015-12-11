@@ -1,4 +1,4 @@
-﻿//TODO Refactor to use JSON
+﻿
 var patch1 = {
     "patchName": "Oilskin",
     "patchNumber": 0,
